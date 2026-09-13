@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portfolio Health</title>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- External styles -->
+  <link rel="stylesheet" href="./report.css" />
+
+  <!-- Load JS after parsing HTML -->
+  <script src="./health.js" defer></script>
+</head>
+
+<body>
+  <div class="card">
+    <h2>🧠 Portfolio Health</h2>
+    <div id="meta" class="muted">Loading…</div>
+  </div>
+
+  <div class="card" id="scores"></div>
+  <div class="card" id="exposure"></div>
+  <div class="card" id="concentration"></div>
+  <div class="card" id="diagnostics"></div>
+</body>
+</html>
