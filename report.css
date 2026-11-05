@@ -1,0 +1,294 @@
+/* report.css — Shared WebApp stylesheet for Snapshot / Health / Stress / Sector */
+
+:root{
+  --tg-bg:#ffffff;
+  --tg-text:#111111;
+
+  /* JS overwrites these depending on theme */
+  --card-bg: rgba(255,255,255,0.94);
+  --card-border: rgba(17,17,17,0.10);
+  --chip-bg: rgba(17,17,17,0.06);
+  --chip-text: rgba(17,17,17,0.78);
+  --muted: rgba(17,17,17,0.62);
+  --shadow: 0 10px 28px rgba(0,0,0,0.08);
+
+  --radius: 16px;
+  --pad: 14px;
+
+  --good:#0a7a2f;
+  --bad:#b00020;
+  --warn:#b26a00;
+
+  --hairline: rgba(17,17,17,0.08);
+
+  /* Brand accents */
+  --navy-1: #06142A;
+  --navy-2: #0A1D3B;
+  --navy-3: #040B17;
+  --gold:   #D4AF37;
+  --green:  #00B46B;
+  --blue:   #5A8CFF;
+
+  /* Compatibility aliases (if some report CSS used them) */
+  --bg: var(--tg-bg);
+  --text: var(--tg-text);
+  --line: var(--card-border);
+  --card: var(--card-bg);
+  --accent: var(--gold);
+}
+
+*{ box-sizing:border-box; }
+
+html, body{
+  margin:0;
+  padding:0;
+  background: var(--tg-bg);
+  color: var(--tg-text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body{
+  padding: 14px;
+}
+
+/* -------- Backgrounds -------- */
+/* Light: white -> very subtle navy depth (no green wash) */
+:root[data-theme="light"] body,
+:root:not([data-theme]) body{
+  background:
+    radial-gradient(1100px 650px at 10% -10%, rgba(6,20,42,0.08), transparent 60%),
+    radial-gradient(900px 520px at 110% 0%, rgba(212,175,55,0.10), transparent 62%),
+    radial-gradient(800px 520px at 50% 110%, rgba(90,140,255,0.06), transparent 60%),
+    linear-gradient(180deg, #ffffff 0%, #fbfbfd 58%, #ffffff 100%);
+}
+
+/* Dark: navy -> darker navy (user expects real dark colors) */
+:root[data-theme="dark"] body{
+  background:
+    radial-gradient(1200px 700px at 25% -10%, rgba(212,175,55,0.10), transparent 62%),
+    radial-gradient(1000px 650px at 95% 15%, rgba(0,180,107,0.08), transparent 60%),
+    linear-gradient(180deg, var(--navy-2) 0%, var(--navy-1) 45%, var(--navy-3) 100%);
+}
+
+/* -------- Cards -------- */
+.card{
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: var(--pad);
+  margin: 12px 0;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+}
+
+/* Lift cards slightly on light background */
+:root[data-theme="light"] .card::before,
+:root:not([data-theme]) .card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.65), transparent 42%);
+  opacity: 0.55;
+}
+
+.header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  width:34px;
+  height:34px;
+  border-radius: 10px;
+  object-fit: contain;
+  background: rgba(0,0,0,0.02);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+}
+
+:root[data-theme="dark"] .logo{
+  background: rgba(255,255,255,0.04);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.28);
+}
+
+/* -------- Typography -------- */
+h2{ margin:0 0 6px; font-size:18px; letter-spacing:0.2px; }
+h3{ margin:0 0 10px; font-size:16px; }
+.h3{
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  opacity:0.85;
+  margin:2px 0 12px;
+}
+
+.muted{ opacity:0.82; font-size:12.5px; color: var(--muted); }
+.small{ font-size:12.5px; line-height:1.45; }
+.mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+
+.bad{ color: var(--bad); }
+.good{ color: var(--good); }
+.warn{ color: var(--warn); }
+
+/* -------- Rows / KV -------- */
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  padding: 8px 0;
+}
+.row > div:first-child{ opacity:0.78; }
+.row > div:last-child{ text-align:right; font-variant-numeric: tabular-nums; }
+
+.k{ opacity:0.82; font-size:14px; }
+.v{ font-weight:700; font-size:14px; text-align:right; font-variant-numeric: tabular-nums; }
+
+.kv{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 14px;
+  margin-top: 8px;
+}
+
+.divider, .hr{
+  height:1px;
+  background: var(--card-border);
+  margin: 10px 0;
+}
+
+/* -------- Chips / Badges -------- */
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:8px;
+}
+
+.chip{
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  font-size: 12px;
+  border: 1px solid var(--hairline);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+:root[data-theme="dark"] .chip{ box-shadow: 0 12px 24px rgba(0,0,0,0.22); }
+
+.chip.sev-high{ border-color: rgba(176,0,32,0.28); }
+.chip.sev-med{  border-color: rgba(178,106,0,0.28); }
+.chip.sev-low{  border-color: rgba(10,122,47,0.28); }
+
+.badge{
+  display:inline-block;
+  margin-left:8px;
+  padding:2px 10px;
+  border-radius:999px;
+  border:1px solid var(--hairline);
+  font-weight:800;
+  font-size:12px;
+  letter-spacing:.04em;
+  color: var(--tg-text);
+  background: transparent;
+}
+.badge.accent{
+  border-color: rgba(212,175,55,0.35);
+  color: var(--gold);
+}
+
+/* -------- Lists -------- */
+.list, .diag-list{
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+.list li, .diag-list li{
+  margin: 10px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed rgba(17,17,17,0.10);
+}
+:root[data-theme="dark"] .list li,
+:root[data-theme="dark"] .diag-list li{
+  border-bottom-color: rgba(255,255,255,0.12);
+}
+.list li:last-child, .diag-list li:last-child{
+  border-bottom:none;
+  padding-bottom:0;
+}
+
+/* STATUS BADGES */
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+/* 🔴 Margin Call */
+.badge.bad {
+  background: rgba(255, 59, 59, 0.12);
+  color: #ff4d4f;
+  border: 1px solid rgba(255, 77, 79, 0.35);
+}
+
+/* 🟡 Warning */
+.badge.warn {
+  background: rgba(255, 193, 7, 0.12);
+  color: #f5c542;
+  border: 1px solid rgba(245, 197, 66, 0.35);
+}
+
+/* 🟢 OK */
+.badge.accent {
+  background: rgba(0, 180, 107, 0.12);
+  color: #00b46b;
+  border: 1px solid rgba(0, 180, 107, 0.35);
+}
+
+/* -------- Tables -------- */
+.table{
+  width:100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-variant-numeric: tabular-nums;
+  overflow:hidden;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+}
+.table thead th{
+  text-align:left;
+  font-size:12px;
+  opacity:0.78;
+  padding:10px;
+  border-bottom:1px solid var(--card-border);
+}
+.table tbody td{
+  padding:10px;
+  border-bottom:1px solid var(--card-border);
+}
+.table tbody tr:last-child td{ border-bottom:none; }
+
+/* -------- Footer -------- */
+.footer{
+  text-align:center;
+  margin-top:10px;
+  opacity:0.55;
+  font-size:12px;
+}
+
+@media (max-width: 380px){
+  body{ padding: 12px; }
+  .card{ padding: 13px; }
+  h2{ font-size: 17px; }
+  .kv{ grid-template-columns: 1fr; }
+}
