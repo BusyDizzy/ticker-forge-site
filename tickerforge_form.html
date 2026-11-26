@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TickerForge Early Testers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; background: #f4f4f4; color: #333; }
+        form { background: #fff; padding: 2rem; border-radius: 8px; max-width: 900px; margin: auto; }
+        h1 { text-align: center; color: #222; }
+        label { display: block; margin-top: 1rem; font-weight: bold; }
+        input[type="text"], input[type="email"], textarea, select {
+            width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;
+        }
+        textarea { resize: vertical; }
+        .checkbox-group label, .radio-group label { font-weight: normal; display: block; margin-left: 1rem; }
+        .submit-btn {
+            background: #007BFF; color: #fff; padding: 10px 20px;
+            border: none; border-radius: 4px; margin-top: 2rem; cursor: pointer;
+        }
+        .submit-btn:hover { background: #0056b3; }
+        .error { color: #c00; margin-top: 0.25em; font-size: 0.95em; }
+        .input-error { border: 1.5px solid #c00 !important; }
+    </style>
+</head>
+<body>
+    <form id="earlyTesterForm" action="https://feedback.ticker-forge.com/api/v1/submit" method="POST" novalidate>
+        <h1>TickerForge Early Testers</h1>
+        <p>Help us tailor your experience by filling out this short survey (2–3 mins).</p>
+
+        <label>1. How many years have you been investing?</label>
+        <input type="text" name="years_investing" id="years_investing" required>
+        <div class="error" id="yearsInvestingError"></div>
+
+        <label>Which markets or regions do you invest in?</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="regions" value="USA"> USA</label>
+            <label><input type="checkbox" name="regions" value="Europe"> Europe</label>
+            <label><input type="checkbox" name="regions" value="Asia"> Asia</label>
+            <label><input type="checkbox" name="regions" value="Latin America"> Latin America</label>
+            <label><input type="checkbox" name="regions" value="Other"> Other</label>
+            <div class="error" id="regionsError"></div>
+        </div>
+
+        <label>What is your investment style?</label>
+        <select name="investment_style" required>
+            <option value="" disabled selected>Select...</option>
+            <option>Long-term investor</option>
+            <option>Medium-term</option>
+            <option>Short-term / Speculator</option>
+        </select>
+
+        <label>What level of risk are you comfortable with?</label>
+        <select name="risk_level" required>
+            <option value="" disabled selected>Select...</option>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+        </select>
+
+        <label>Have you experienced a “painful” investment? What did you learn?</label>
+        <textarea name="painful_investment" required></textarea>
+
+        <label>Do you follow your own trading strategy? How does it work?</label>
+        <textarea name="strategy" required></textarea>
+
+        <label>How do you make buy/sell decisions?</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="decision_style" value="Pre-select and hold"> Pre-select and hold</label>
+            <label><input type="checkbox" name="decision_style" value="Follow signals"> Follow signals</label>
+            <label><input type="checkbox" name="decision_style" value="News-driven"> News-driven</label>
+            <label><input type="checkbox" name="decision_style" value="Intuition"> Intuition</label>
+            <label><input type="checkbox" name="decision_style" value="Other"> Other</label>
+            <div class="error" id="decisionStyleError"></div>
+        </div>
+
+        <label>How much time per week do you spend analyzing markets?</label>
+        <select name="analyze_time" required>
+            <option value="" disabled selected>Select...</option>
+            <option>&lt; 1 hour</option>
+            <option>1–5 hours</option>
+            <option>6–10 hours</option>
+            <option>&gt; 10 hours</option>
+        </select>
+
+        <label>What makes a company interesting to you?</label>
+        <textarea name="interesting_company" required></textarea>
+
+        <label>Which criteria do you use to pick stocks?</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="criteria" value="Sector/Industry"> Sector/Industry</label>
+            <label><input type="checkbox" name="criteria" value="Financial Metrics"> Financial Metrics</label>
+            <label><input type="checkbox" name="criteria" value="Market Cap"> Market Cap</label>
+            <label><input type="checkbox" name="criteria" value="News/Events"> News/Events</label>
+            <label><input type="checkbox" name="criteria" value="Recommendations"> Recommendations</label>
+            <label><input type="checkbox" name="criteria" value="Tips from social"> Tips from social</label>
+            <label><input type="checkbox" name="criteria" value="Other"> Other</label>
+            <div class="error" id="criteriaError"></div>
+        </div>
+
+        <label>Do you follow other traders’ or analysts’ recommendations?</label>
+        <select name="follow_recommendations" required>
+            <option value="" disabled selected>Select...</option>
+            <option>Yes, regularly</option>
+            <option>Occasionally</option>
+            <option>No</option>
+        </select>
+
+        <label>How much do you trust automated recommendations?</label>
+        <select name="trust_auto" required>
+            <option value="" disabled selected>Select...</option>
+            <option>1 – Not at all</option>
+            <option>2</option>
+            <option>3 – Neutral</option>
+            <option>4</option>
+            <option>5 – Completely</option>
+        </select>
+
+        <label>Which tools do you use for analysis?</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="tools" value="Broker"> Broker platforms</label>
+            <label><input type="checkbox" name="tools" value="Yahoo"> Yahoo / Finviz / SA</label>
+            <label><input type="checkbox" name="tools" value="Excel"> Excel / Google Sheets</label>
+            <label><input type="checkbox" name="tools" value="Telegram"> Telegram</label>
+            <label><input type="checkbox" name="tools" value="YouTube"> YouTube / Podcasts</label>
+            <label><input type="checkbox" name="tools" value="Reddit"> Reddit / Blogs</label>
+            <label><input type="checkbox" name="tools" value="Other"> Other</label>
+            <div class="error" id="toolsError"></div>
+        </div>
+
+        <label>Which assets do you trade?</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="assets" value="Stocks"> Stocks</label>
+            <label><input type="checkbox" name="assets" value="ETFs"> ETFs</label>
+            <label><input type="checkbox" name="assets" value="Options"> Options</label>
+            <label><input type="checkbox" name="assets" value="Crypto"> Cryptocurrencies</label>
+            <label><input type="checkbox" name="assets" value="Bonds"> Bonds</label>
+            <label><input type="checkbox" name="assets" value="Other"> Other</label>
+            <div class="error" id="assetsError"></div>
+        </div>
+
+        <label>Have any tools let you down? Why?</label>
+        <textarea name="tool_disappointment" required></textarea>
+
+        <label>Which format do you prefer?</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="format" value="Cards"> Quick cards</label>
+            <label><input type="checkbox" name="format" value="Tables"> Tables and metrics</label>
+            <label><input type="checkbox" name="format" value="Charts"> Charts and visuals</label>
+            <label><input type="checkbox" name="format" value="Text"> Text summaries</label>
+            <label><input type="checkbox" name="format" value="Other"> Other</label>
+            <div class="error" id="formatError"></div>
+        </div>
+
+        <label>What feels like information overload?</label>
+        <textarea name="overload" required></textarea>
+
+        <label>Where do you prefer receiving insights?</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="insight_channels" value="Telegram"> Telegram</label>
+            <label><input type="checkbox" name="insight_channels" value="Email"> Email / PDF</label>
+            <label><input type="checkbox" name="insight_channels" value="Instagram"> Instagram / Pinterest</label>
+            <label><input type="checkbox" name="insight_channels" value="Website"> Website / Dashboard</label>
+            <div class="error" id="insightChannelsError"></div>
+        </div>
+
+        <label>Have you used demo/mock trading accounts before?</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="mock_used" value="TradingView"> TradingView</label>
+            <label><input type="checkbox" name="mock_used" value="Broker Demo"> Broker demo accounts</label>
+            <label><input type="checkbox" name="mock_used" value="Telegram Bot"> Telegram bots</label>
+            <label><input type="checkbox" name="mock_used" value="Excel"> Excel / Sheets</label>
+            <label><input type="checkbox" name="mock_used" value="Other"> Other</label>
+            <div class="error" id="mockUsedError"></div>
+        </div>
+
+        <label>How useful would mock trading be for you?</label>
+        <select name="mock_usefulness" required>
+            <option value="" disabled selected>Select...</option>
+            <option>1 – Not useful</option>
+            <option>2</option>
+            <option>3 – Neutral</option>
+            <option>4</option>
+            <option>5 – Highly useful</option>
+        </select>
+
+        <label>What do you expect from an investment assistant?</label>
+        <textarea name="expectations" required></textarea>
+
+        <label>What challenges do you face when analyzing companies?</label>
+        <textarea name="challenges" required></textarea>
+
+        <label>Which features matter most to you?</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="features" value="Fair Value"> Fair Value estimation</label>
+            <label><input type="checkbox" name="features" value="Health Score"> Company Health Score</label>
+            <label><input type="checkbox" name="features" value="Alerts"> Buy/Sell Alerts</label>
+            <label><input type="checkbox" name="features" value="Visuals"> Trend / Risk visuals</label>
+            <div class="error" id="featuresError"></div>
+        </div>
+
+        <label>Describe your ideal investment assistant.</label>
+        <textarea name="ideal_assistant" required></textarea>
+
+        <label>Would you like to try the beta Telegram bot?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="beta_interest" value="Yes" required> Yes</label>
+            <label><input type="radio" name="beta_interest" value="Maybe"> Maybe later</label>
+            <label><input type="radio" name="beta_interest" value="No"> No, thank you</label>
+            <div class="error" id="betaInterestError"></div>
+        </div>
+
+        <label>Are you willing to provide feedback after trying it?</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="willing_feedback" value="Interview"> Yes, via interview</label>
+            <label><input type="checkbox" name="willing_feedback" value="Questionnaire"> Yes, via questionnaire</label>
+            <label><input type="checkbox" name="willing_feedback" value="No"> No</label>
+            <div class="error" id="willingFeedbackError"></div>
+        </div>
+
+        <label>Email</label>
+        <input type="email" name="email" id="email" required>
+        <div class="error" id="emailError"></div>
+
+        <label>Telegram Handle (e.g., @username)</label>
+        <input type="text" name="telegram_handle" id="telegram_handle" required pattern="^@?\w{5,}$">
+        <div class="error" id="telegramHandleError"></div>
+
+        <button class="submit-btn" type="submit">Submit</button>
+    </form>
+<script>
+// Форма JS с поддержкой ошибок для каждого поля
+document.getElementById('earlyTesterForm').onsubmit = function(e) {
+    let valid = true;
+
+    // Очистить все ошибки
+    function clearErrors() {
+        document.querySelectorAll('.error').forEach(el => el.textContent = '');
+        document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+    }
+    clearErrors();
+
+    // Helper для checkbox/radio групп
+    function checkGroup(name, errorId, message) {
+        if (!document.querySelector('input[name="'+name+'"]:checked')) {
+            document.getElementById(errorId).textContent = message;
+            valid = false;
+        }
+    }
+
+    // Checkbox/Radio группы
+    checkGroup('regions', 'regionsError', "Please select at least one region.");
+    checkGroup('decision_style', 'decisionStyleError', "Please select at least one decision style.");
+    checkGroup('criteria', 'criteriaError', "Please select at least one criteria.");
+    checkGroup('tools', 'toolsError', "Please select at least one tool.");
+    checkGroup('assets', 'assetsError', "Please select at least one asset.");
+    checkGroup('format', 'formatError', "Please select at least one format.");
+    checkGroup('insight_channels', 'insightChannelsError', "Please select at least one insight channel.");
+    checkGroup('mock_used', 'mockUsedError', "Please select at least one mock trading type.");
+    checkGroup('features', 'featuresError', "Please select at least one feature.");
+    checkGroup('willing_feedback', 'willingFeedbackError', "Please select at least one option.");
+
+    // Beta_interest radio
+    if (!document.querySelector('input[name="beta_interest"]:checked')) {
+        document.getElementById('betaInterestError').textContent = "Please select an option.";
+        valid = false;
+    }
+
+    // Email (not blank + формат)
+    const emailEl = document.getElementById('email');
+    const email = emailEl.value.trim();
+    if (!email) {
+        emailEl.classList.add('input-error');
+        document.getElementById('emailError').textContent = "Please enter your Email.";
+        valid = false;
+    } else {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            emailEl.classList.add('input-error');
+            document.getElementById('emailError').textContent = "Please enter a valid Email address.";
+            valid = false;
+        }
+    }
+
+    // Telegram handle
+    const handleEl = document.getElementById('telegram_handle');
+    const handle = handleEl.value.trim();
+    if (!handle) {
+        handleEl.classList.add('input-error');
+        document.getElementById('telegramHandleError').textContent = "Please enter your Telegram handle.";
+        valid = false;
+    } else {
+        const handlePattern = /^@?\w{5,}$/;
+        if (!handlePattern.test(handle)) {
+            handleEl.classList.add('input-error');
+            document.getElementById('telegramHandleError').textContent = "Please enter a valid Telegram handle (at least 5 characters, can start with @).";
+            valid = false;
+        }
+    }
+
+    // Годы инвестирования
+    const yearsEl = document.getElementById('years_investing');
+    if (yearsEl) {
+        const years = yearsEl.value.trim();
+        if (!years || isNaN(years) || Number(years) < 0 || Number(years) > 99) {
+            yearsEl.classList.add('input-error');
+            document.getElementById('yearsInvestingError').textContent = "Please enter years of investing (0-99).";
+            valid = false;
+        }
+    }
+
+    if (!valid) {
+        e.preventDefault();
+        const firstError = document.querySelector('.input-error, .error:not(:empty)');
+        if (firstError) firstError.scrollIntoView({behavior: "smooth"});
+        return false;
+    }
+};
+</script>
+</body>
+</html>
